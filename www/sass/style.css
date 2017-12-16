@@ -45,8 +45,7 @@ h1 {
   z-index: 1000;
   position: sticky;
   top: 1rem;
-  margin: 3rem 0;
-  left: 10%;
+  margin: 3rem auto;
   width: 80%;
   display: flex;
 }

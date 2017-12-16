@@ -41,12 +41,12 @@ class CoinMarketCapHtmlBuilder {
             <span class="title">Price</span>
             <div class="elem">
               <span class="label">Fiat</span>
-              <span class="value">${cc[`price_${currencyLower}`]}</span>
+              <span class="value">${cc[`price_${currencyLower}`].toLocaleString("en")}</span>
               <span class="currency">${options.currency}</span>
             </div>
             <div class="elem">
               <span class="label">Crypto</span>
-              <span class="value">${cc.price_btc}</span>
+              <span class="value">${cc.price_btc.toLocaleString("en")}</span>
               <span class="currency">BTC</span>
             </div>
           </div>
@@ -54,22 +54,22 @@ class CoinMarketCapHtmlBuilder {
             <span class="title">Market</span>
             <div class="elem">
               <span class="label">24h Volume</span>
-              <span class="value">${cc[`24h_volume_${currencyLower}`]}</span>
+              <span class="value">${cc[`24h_volume_${currencyLower}`].toLocaleString("en")}</span>
               <span class="currency">${options.currency}</span>
             </div>
             <div class="elem">
               <span class="label">Market Cap</span>
-              <span class="value">${cc[`market_cap_${currencyLower}`]}</span>
+              <span class="value">${cc[`market_cap_${currencyLower}`].toLocaleString("en")}</span>
               <span class="currency">${options.currency}</span>
             </div>
             <div class="elem">
               <span class="label">Available Supply</span>
-              <span class="value">${cc.available_supply}</span>
+              <span class="value">${cc.available_supply.toLocaleString("en")}</span>
               <span class="currency">${cc.symbol}</span>
             </div>
             <div class="elem">
               <span class="label">Total Supply</span>
-              <span class="value">${cc.total_supply}</span>
+              <span class="value">${cc.total_supply.toLocaleString("en")}</span>
               <span class="currency">${cc.symbol}</span>
             </div>
           </div>
@@ -112,7 +112,7 @@ class CoinMarketCapHtmlBuilder {
         <div class="truncation-notice">
           <span class="question">
             <abbr title="Results are truncated for performance reasons.">
-              Think we're missing something?
+              Missing a certain cryptocurrency?
             </abbr>
           </span><br>
           <span class="hint">

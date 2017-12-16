@@ -8,19 +8,19 @@
     </feature>
     <name>CoinMarketCap</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Sexy cryptomarket tracker.
     </description>
-    <author email="splittydev@gmail.com" href="http://phonegap.com">
+    <author email="splittydev@gmail.com" href="https://splittydev.com">
         Marco Quinten
     </author>
     <content src="index.html" />
-    <access origin="*" />
+    <access origin="https://api.coinmarketcap.com" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
+    <preference name="Fullscreen" value="true" />
+    <preference name="Orientation" value="portrait" />
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="KeepRunning" value="true" />
     <preference name="android-minSdkVersion" value="14" />
 </widget>
