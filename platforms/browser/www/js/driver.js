@@ -1,6 +1,7 @@
 // Constants
 const DISPLAY_LIMIT = 20;
 const FETCH_INTV = 20000;
+const CURRENCY = "USD";
 
 // Imports
 const connector = new window.Connector();
@@ -20,13 +21,13 @@ function driverMain () {
         // eslint-disable-next-line no-underscore-dangle
         const data = await provider.__retrieveCached({
             display_limit: DISPLAY_LIMIT,
-            currency: null,
+            currency: CURRENCY,
         });
 
         // Build html representation
         container.innerHTML = builder.build(data, {
             trunc_info_block: true,
-            currency: null,
+            currency: CURRENCY,
         });
     };
 
@@ -34,7 +35,7 @@ function driverMain () {
 
         // Fill cache
         await provider.fillCache({
-            currency: null,
+            currency: CURRENCY,
         });
 
         // Update DOM
@@ -57,7 +58,7 @@ function driverMain () {
         // Grab cached data
         // eslint-disable-next-line no-underscore-dangle
         const data = await provider.__retrieveCached({
-            currency: null,
+            currency: CURRENCY,
         });
 
         // Iterate over cached coins
@@ -76,7 +77,7 @@ function driverMain () {
 
             // Update DOM with cached data
             container.innerHTML = builder.build([coin], {
-                currency: null,
+                currency: CURRENCY,
             });
             } else if (true // Test if alternative cryptocurrency matches
             && coin.name.toLowerCase().includes(value)
@@ -88,7 +89,7 @@ function driverMain () {
         if (!match && altMatches.length > 0) {
             // Update DOM with matched data
             container.innerHTML = builder.build(altMatches, {
-            currency: null,
+            currency: CURRENCY,
             });
         } else if (!match) {
             container.innerHTML = '<div class="placeholder">Cryptocurrency not found :(</div>';
@@ -103,7 +104,7 @@ function driverMain () {
 
         // Update cache
         provider.fillCache({
-            currency: null,
+            currency: CURRENCY,
         }).then(() => {
             // Update DOM dynamically
             updateDomDynamic();
@@ -115,6 +116,7 @@ function driverMain () {
     searchBar.oninput = updateDomDynamic;
 }
 
+// Exports
 window.Driver = {
     start: driverMain,
 };
