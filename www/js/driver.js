@@ -74,15 +74,18 @@ function driverMain () {
             || coin.id.toLowerCase() === value
             || coin.name.toLowerCase() === value
             ) {
-            // We found a match
-            match = true;
+              // We found a match
+              match = true;
 
-            // Update DOM with cached data
-            container.innerHTML = builder.build([coin], {
-                currency: CURRENCY,
-            });
+              // Update DOM with cached data
+              container.innerHTML = builder.build([coin], {
+                  currency: CURRENCY,
+              });
             } else if (true // Test if alternative cryptocurrency matches
-            && coin.name.toLowerCase().includes(value)
+            && (false
+              || coin.id.toLowerCase().includes(value)
+              || coin.name.toLowerCase().includes(value)
+              || coin.symbol.toLowerCase().includes(value))
             && altMatches.length < DISPLAY_LIMIT
             ) altMatches.push(coin); // Add cryptocurrency to match list
         });
