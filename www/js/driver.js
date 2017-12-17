@@ -1,7 +1,6 @@
 // Constants
 const DISPLAY_LIMIT = 20;
 const FETCH_INTV = 20000;
-const CURRENCY = "USD";
 
 // Imports
 const connector = new window.Connector();
@@ -14,16 +13,22 @@ function registerFavorites (cb) {
     const diff = now - elem.lastTap;
     if (elem.lastTap > 0 && diff > 0 && diff < 200) {
       elem.lastTap = new Date().getTime() - 200;
-      let favorites = JSON.parse(localStorage.getItem('favorites') || JSON.stringify({list:[]}));
+      let favorites = State.getObject('favorites');
       let symbol = elem.getAttribute('data-symbol');
       if (!favorites.list.includes(symbol)) {
         favorites.list.push(symbol);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        navigator.notification.alert(`Added ${elem.getAttribute('data-name')} to favorites!`, null, 'HYPPEEEE');
+        State.setObject('favorites', favorites);
+        Notifier.alert({
+          title: 'HYPPEEEE',
+          text: `Added ${elem.getAttribute('data-name')} to favorites!`,
+        });
       } else {
         favorites.list.splice(favorites.list.indexOf(symbol), 1);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        navigator.notification.alert(`Removed ${elem.getAttribute('data-name')} from favorites.`, null, 'There you go');
+        State.setObject('favorites', favorites);
+        Notifier.alert({
+          title: 'BOOO',
+          text: `Removed ${elem.getAttribute('data-name')} from favorites.`,
+        });
       }
       e.preventDefault();
       window.scrollTo(0, 0);
@@ -55,13 +60,13 @@ function driverMain () {
         // eslint-disable-next-line no-underscore-dangle
         const data = await provider.__retrieveCached({
             display_limit: undefined,
-            currency: CURRENCY,
+            currency: State.getString('currency'),
         });
 
         // Build html representation
         container.innerHTML = builder.build(data, {
             trunc_info_block: true,
-            currency: CURRENCY,
+            currency: State.getString('currency'),
             display_limit: DISPLAY_LIMIT,
         });
 
@@ -72,7 +77,7 @@ function driverMain () {
 
         // Fill cache
         await provider.fillCache({
-            currency: CURRENCY,
+            currency: State.getString('currency'),
         });
 
         // Update DOM
@@ -95,7 +100,7 @@ function driverMain () {
         // Grab cached data
         // eslint-disable-next-line no-underscore-dangle
         const data = await provider.__retrieveCached({
-            currency: CURRENCY,
+            currency: State.getString('currency'),
         });
 
         // Iterate over cached coins
@@ -114,7 +119,7 @@ function driverMain () {
 
               // Update DOM with cached data
               container.innerHTML = builder.build([coin], {
-                  currency: CURRENCY,
+                  currency: State.getString('currency'),
               });
             } else if (true // Test if alternative cryptocurrency matches
             && (false
@@ -131,7 +136,7 @@ function driverMain () {
         if (!match && altMatches.length > 0) {
             // Update DOM with matched data
             container.innerHTML = builder.build(altMatches, {
-              currency: CURRENCY,
+              currency: State.getString('currency'),
             });
         } else if (!match) {
             container.innerHTML = '<div class="placeholder">¯\\_(ツ)_/¯</div>';
@@ -148,7 +153,7 @@ function driverMain () {
 
         // Update cache
         provider.fillCache({
-            currency: CURRENCY,
+            currency: State.getString('currency'),
         }).then(() => {
             // Update DOM dynamically
             updateDomDynamic();
@@ -156,11 +161,23 @@ function driverMain () {
         }).catch(err => console.error(err));
     }, FETCH_INTV);
 
+    // Periodically check for currency-conversion change
+    let oldCurrency = State.getString('currency');
+    setInterval(() => {
+      const newCurrency = State.getString('currency');
+      if (oldCurrency !== newCurrency) {
+        provider.fillCache({
+          currency: newCurrency,
+        }).then(() => updateDomDynamic());
+      }
+      oldCurrency = newCurrency;
+    }, 500);
+
     // Handle search functionality
     searchBar.oninput = updateDomDynamic;
 }
 
 // Exports
 window.Driver = {
-    start: driverMain,
+  start: driverMain,
 };

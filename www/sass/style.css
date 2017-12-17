@@ -41,6 +41,51 @@ h1 {
   line-height: 2rem;
 }
 
+[view=main] {
+  display: block;
+  opacity: 1;
+}
+
+[view]:not([view=main]) {
+  display: none;
+  opacity: 0;
+}
+
+[view=settings] .container {
+  box-shadow: 0 15px 35px rgba(50, 50, 75, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+  width: 90%;
+  padding: 1.5rem;
+  margin: 1.5rem auto;
+  line-height: 1.5rem;
+  background-color: #fafafa;
+}
+
+[view=settings] .container label {
+  display: block;
+  font-family: "Roboto Light";
+  font-size: 1.15rem;
+  margin-bottom: 1em;
+}
+
+[view=settings] .container .group:not(:first-child) {
+  margin-top: 2em;
+}
+
+[view=settings] .container .button-group {
+  display: flex;
+  justify-content: space-around;
+  align-content: space-around;
+}
+
+[view=settings] .container .button-group input[type=button] {
+  box-shadow: 0 15px 35px rgba(50, 50, 75, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+  font-family: "Roboto";
+  font-size: 0.9rem;
+  padding: 1rem 2rem 1rem 2rem;
+  background-color: #ececec;
+  border: none;
+}
+
 .search-bar {
   box-shadow: 0 15px 35px rgba(50, 50, 75, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
   z-index: 1000;

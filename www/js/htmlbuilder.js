@@ -30,9 +30,7 @@ class CoinMarketCapHtmlBuilder {
     let html = String();
 
     // Sort favorites
-    const favorites = JSON.parse(
-      localStorage.getItem('favorites')
-      || JSON.stringify({list:[]}));
+    const favorites = State.getObject('favorites');
     data.sort((a, b) => {
       let a_mc = a[`market_cap_${currencyLower}`];
       let b_mc = b[`market_cap_${currencyLower}`];

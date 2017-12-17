@@ -12,57 +12,75 @@
   </head>
   <body>
     <div class="app">
-      <div class="search-bar">
-        <input
-          class="search-bar-input"
-          placeholder="Search for cryptocurrency..."
-          type="text"
-          autofocus>
+
+      <!-- Main view -->
+      <div view="main">
+        <div class="search-bar">
+          <input
+            class="search-bar-input"
+            placeholder="Search for cryptocurrency..."
+            type="text"
+            autofocus>
+        </div>
+        <div class="container">
+          <!-- Filled by JS. -->
+          <div class="placeholder">Fetching...</div>
+        </div>
       </div>
-      <div class="container">
-        <!-- Filled by JS. -->
-        <div class="placeholder">Fetching...</div>
+
+      <!-- Settings view -->
+      <div view="settings">
+        <h1>Settings</h1>
+        <div class="container">
+          <form class="settings">
+            <div class="group">
+              <label>Currency</label>
+              <div class="button-group">
+                <input
+                  state-update="currency"
+                  state-value="USD"
+                  state-feedback
+                  type="button"
+                  value="$ USD">
+                <input
+                  state-update="currency"
+                  state-value="EUR"
+                  state-feedback
+                  type="button"
+                  value="€ EUR">
+              </div>
+            </div>
+            <div class="group">
+              <div class="button-group">
+                <input
+                  view-present="main"
+                  type="button"
+                  value="Save and back">
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+
+    <!-- PhoneGap -->
     <script type="text/javascript" src="cordova.js"></script>
+
+    <!-- State Logic -->
+    <script type="text/javascript" src="js/statemanager.js"></script>
+
+    <!-- UI Logic -->
+    <script type="text/javascript" src="js/notifier.js"></script>
+    <script type="text/javascript" src="js/animator.js"></script>
+    <script type="text/javascript" src="js/views.js"></script>
+    <script type="text/javascript" src="js/uitweaks.js"></script>
+
+    <!-- Data Logic -->
     <script type="text/javascript" src="js/connector.js"></script>
     <script type="text/javascript" src="js/htmlbuilder.js"></script>
+
+    <!-- App Logic -->
     <script type="text/javascript" src="js/driver.js"></script>
-    <script type="text/javascript">
-    const app = {
-      initialize: function() {
-          this.bindEvents();
-      },
-      // Bind Event Listeners
-      //
-      // Bind any events that are required on startup. Common events are:
-      // 'load', 'deviceready', 'offline', and 'online'.
-      bindEvents: function() {
-          document.addEventListener('deviceready', this.onDeviceReady, false);
-      },
-      // deviceready Event Handler
-      //
-      // The scope of 'this' is the event. In order to call the 'receivedEvent'
-      // function, we must explicitly call 'app.receivedEvent(...);'
-      onDeviceReady: function() {
-        // if (window.cordova && window.cordova.plugins) {
-        //   cordova.plugins.notification.local.schedule({
-        //     title: 'Coin Alert',
-        //     text: 'Hello world!',
-        //   });
-        // }
-        window.Driver.start();
-      },
-    };
-    app.initialize ();
-    </script>
-    <script>
-      const search_bar = document.querySelector('.search-bar-input');
-      search_bar.addEventListener('keyup', e => {
-        if (e.keyCode === 13) {
-          search_bar.blur();
-        }
-      });
-    </script>
+    <script type="text/javascript" src="js/app.js"></script>
   </body>
 </html>
