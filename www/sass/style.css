@@ -86,6 +86,11 @@ h1 {
   border: none;
 }
 
+[view=settings] .container .button-group input.state--highlight {
+  color: #ececec;
+  background-color: #609e92;
+}
+
 .search-bar {
   box-shadow: 0 15px 35px rgba(50, 50, 75, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
   z-index: 1000;

@@ -8,6 +8,7 @@ $color-arrow-up:        rgba(39, 174, 96, 1.0)
 $color-arrow-down:      rgba(192, 57, 43, 1.0)
 $color-lightened:       lighten($color-primary, 40%)
 $color-light:           lighten($color-primary, 60%)
+$color-highlight:       rgba(96, 158, 146, 1.0)
 
 // Fonts
 $font-regular:          "Roboto"
@@ -98,6 +99,10 @@ h1
         padding: 1rem 2rem 1rem 2rem
         background-color: $color-primary-light
         border: none
+
+      input.state--highlight
+        color: $color-primary-light
+        background-color: $color-highlight
 
 .search-bar
   +card

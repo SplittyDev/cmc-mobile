@@ -7,6 +7,7 @@ window.State = {
   ready: function() {
     this.__prepare();
     this.__registerHandlers();
+    this.__updateHighlights();
   },
 
   //
@@ -27,10 +28,12 @@ window.State = {
 
   setString: function(key, val) {
     localStorage.setItem(key, val);
+    this.__updateHighlights();
   },
 
   setObject: function(key, val) {
     localStorage.setItem(key, JSON.stringify(val));
+    this.__updateHighlights();
   },
 
   //
@@ -40,6 +43,7 @@ window.State = {
   __prepare: function() {
     this.__prepareDefault('favorites', JSON.stringify({ list: [] }));
     this.__prepareDefault('currency', 'USD');
+    this.__prepareDefault('scrollToTop', 'true');
   },
 
   __prepareDefault: function(key, val) {
@@ -49,12 +53,12 @@ window.State = {
   },
 
   __registerHandlers: function() {
-    for (let elem of document.querySelectorAll('[state-update]')) {
+    for (let elem of document.querySelectorAll('[state-update-key]')) {
       elem.addEventListener('click', e => {
         elem.blur();
         let [key, val] = [
-          elem.getAttribute('state-update'),
-          elem.getAttribute('state-value'),
+          elem.getAttribute('state-update-key'),
+          elem.getAttribute('state-update-val'),
         ];
         this.setString(key, val);
         if (elem.hasAttribute('state-feedback')) {
@@ -65,6 +69,20 @@ window.State = {
         }
         e.preventDefault();
       });
+    }
+  },
+
+  __updateHighlights: function() {
+    for (let elem of document.querySelectorAll('[state-highlight-if]')) {
+      let [key, expected] = [
+        elem.getAttribute('state-highlight-if'),
+        elem.getAttribute('state-highlight-is'),
+      ];
+      if (this.getString(key) === expected) {
+        elem.classList.add('state--highlight');
+      } else {
+        elem.classList.remove('state--highlight');
+      }
     }
   },
 };

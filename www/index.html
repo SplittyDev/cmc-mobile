@@ -37,17 +37,42 @@
               <label>Currency</label>
               <div class="button-group">
                 <input
-                  state-update="currency"
-                  state-value="USD"
                   state-feedback
+                  state-update-key="currency"
+                  state-update-val="USD"
+                  state-highlight-if="currency"
+                  state-highlight-is="USD"
                   type="button"
                   value="$ USD">
                 <input
-                  state-update="currency"
-                  state-value="EUR"
                   state-feedback
+                  state-update-key="currency"
+                  state-update-val="EUR"
+                  state-highlight-if="currency"
+                  state-highlight-is="EUR"
                   type="button"
                   value="€ EUR">
+              </div>
+            </div>
+            <div class="group">
+              <label>Scroll to top after double-tap</label>
+              <div class="button-group">
+                <input
+                  state-feedback
+                  state-update-key="scrollToTop"
+                  state-update-val="false"
+                  state-highlight-if="scrollToTop"
+                  state-highlight-is="false"
+                  type="button"
+                  value="No">
+                <input
+                  state-feedback
+                  state-update-key="scrollToTop"
+                  state-update-val="true"
+                  state-highlight-if="scrollToTop"
+                  state-highlight-is="true"
+                  type="button"
+                  value="Yes">
               </div>
             </div>
             <div class="group">
