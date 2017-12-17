@@ -64,8 +64,8 @@ h1
   +card
   z-index: 1000
   position: sticky
-  top: 1rem
-  margin: 3rem auto
+  top: 2rem
+  margin: 2rem auto
   width: 80%
   display: flex
 
@@ -105,6 +105,9 @@ ul.coins
     line-height: 1.5rem
     background-color: $color-box
 
+    &:last-child
+      margin-bottom: 1.5rem
+
     + li.coin
       margin-top: 3rem
 
@@ -118,6 +121,15 @@ ul.coins
       .coin-symbol
         color: $color-lightened
         font-size: $font-size-regular
+
+        &[data-favorite=true]:after
+          content: "⭐"
+          margin: 0 0 0 0 !important
+          display: inline !important
+          font-size: $font-size-regular/2
+          line-height: 1rem
+          vertical-align: top
+          padding: 0 0 0 .2em
 
     .truncation-notice
       text-align: center

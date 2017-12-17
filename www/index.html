@@ -5,14 +5,13 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-    <meta http-equiv="Content-Security-Policy"content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com https://api.coinmarketcap.com; style-src 'self' 'unsafe-inline'; media-src *">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com https://api.coinmarketcap.com; style-src 'self' 'unsafe-inline'; media-src *">
     <link rel="stylesheet" type="text/css" href="css/fonts.css" />
     <link rel="stylesheet" type="text/css" href="sass/style.min.css" />
     <title>CoinMarketCap</title>
   </head>
   <body>
     <div class="app">
-      <h1>Coin Market Cap</h1>
       <div class="search-bar">
         <input
           class="search-bar-input"
@@ -56,6 +55,14 @@
       },
     };
     app.initialize ();
+    </script>
+    <script>
+      const search_bar = document.querySelector('.search-bar-input');
+      search_bar.addEventListener('keyup', e => {
+        if (e.keyCode === 13) {
+          search_bar.blur();
+        }
+      });
     </script>
   </body>
 </html>

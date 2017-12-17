@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Roboto";
   src: url("../font/roboto/Roboto-Regular.ttf") format("truetype");
@@ -44,8 +45,8 @@ h1 {
   box-shadow: 0 15px 35px rgba(50, 50, 75, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
   z-index: 1000;
   position: sticky;
-  top: 1rem;
-  margin: 3rem auto;
+  top: 2rem;
+  margin: 2rem auto;
   width: 80%;
   display: flex;
 }
@@ -90,6 +91,10 @@ ul.coins > li.coin {
   background-color: #fafafa;
 }
 
+ul.coins > li.coin:last-child {
+  margin-bottom: 1.5rem;
+}
+
 ul.coins > li.coin + li.coin {
   margin-top: 3rem;
 }
@@ -105,6 +110,16 @@ ul.coins > li.coin .header {
 ul.coins > li.coin .header .coin-symbol {
   color: #7d7d7d;
   font-size: 1.25rem;
+}
+
+ul.coins > li.coin .header .coin-symbol[data-favorite=true]:after {
+  content: "⭐";
+  margin: 0 0 0 0 !important;
+  display: inline !important;
+  font-size: 0.625rem;
+  line-height: 1rem;
+  vertical-align: top;
+  padding: 0 0 0 .2em;
 }
 
 ul.coins > li.coin .truncation-notice {

@@ -8,6 +8,40 @@ const connector = new window.Connector();
 const provider = new window.Provider(connector);
 const builder = new window.HtmlBuilder();
 
+function registerFavorites (cb) {
+  function tapHandler(e, elem, cb) {
+    const now = new Date().getTime();
+    const diff = now - elem.lastTap;
+    if (elem.lastTap > 0 && diff > 0 && diff < 200) {
+      elem.lastTap = new Date().getTime() - 200;
+      let favorites = JSON.parse(localStorage.getItem('favorites') || JSON.stringify({list:[]}));
+      let symbol = elem.getAttribute('data-symbol');
+      if (!favorites.list.includes(symbol)) {
+        favorites.list.push(symbol);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        navigator.notification.alert(`Added ${elem.getAttribute('data-name')} to favorites!`, null, 'HYPPEEEE');
+      } else {
+        favorites.list.splice(favorites.list.indexOf(symbol), 1);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        navigator.notification.alert(`Removed ${elem.getAttribute('data-name')} from favorites.`, null, 'There you go');
+      }
+      e.preventDefault();
+      window.scrollTo(0, 0);
+      cb();
+    } else {
+      elem.lastTap = new Date().getTime();
+    }
+  }
+  for (const elem of document.querySelectorAll('.coin')) {
+    if (elem.favoriteRegistered) continue;
+    elem.lastTap = 0;
+    elem.addEventListener(
+      'ontouchstart' in document.documentElement
+      ? 'touchstart' : 'click', e => tapHandler(e, elem, cb));
+    elem.favoriteRegistered = true;
+  }
+}
+
 // Main functionality
 function driverMain () {
 
@@ -15,14 +49,12 @@ function driverMain () {
     const container = document.getElementsByClassName('container')[0];
     const searchBar = document.querySelector('.search-bar-input');
 
-    let favorites = localStorage.getItem('favorites') || [];
-
     const updateDom = async () => {
 
         // Get cached data
         // eslint-disable-next-line no-underscore-dangle
         const data = await provider.__retrieveCached({
-            display_limit: DISPLAY_LIMIT,
+            display_limit: undefined,
             currency: CURRENCY,
         });
 
@@ -30,7 +62,10 @@ function driverMain () {
         container.innerHTML = builder.build(data, {
             trunc_info_block: true,
             currency: CURRENCY,
+            display_limit: DISPLAY_LIMIT,
         });
+
+        registerFavorites(() => updateDom());
     };
 
     const fetchInitialize = async () => {
@@ -87,18 +122,22 @@ function driverMain () {
               || coin.name.toLowerCase().includes(value)
               || coin.symbol.toLowerCase().includes(value))
             && altMatches.length < DISPLAY_LIMIT
-            ) altMatches.push(coin); // Add cryptocurrency to match list
+          ) { // Add cryptocurrency to match list
+            altMatches.push(coin);
+          }
         });
 
         // Test if alternative matches were found
         if (!match && altMatches.length > 0) {
             // Update DOM with matched data
             container.innerHTML = builder.build(altMatches, {
-            currency: CURRENCY,
+              currency: CURRENCY,
             });
         } else if (!match) {
             container.innerHTML = '<div class="placeholder">¯\\_(ツ)_/¯</div>';
         }
+
+        registerFavorites(() => updateDomDynamic());
     };
 
     // Initialize cache and update DOM
