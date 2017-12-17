@@ -46,13 +46,12 @@
       // The scope of 'this' is the event. In order to call the 'receivedEvent'
       // function, we must explicitly call 'app.receivedEvent(...);'
       onDeviceReady: function() {
-        if (window.cordova) {
-          cordova.plugins.notification.local.schedule({
-            title: 'Coin Alert',
-            text: 'Hello world!',
-            foreground: true
-          });
-        }
+        // if (window.cordova && window.cordova.plugins) {
+        //   cordova.plugins.notification.local.schedule({
+        //     title: 'Coin Alert',
+        //     text: 'Hello world!',
+        //   });
+        // }
         window.Driver.start();
       },
     };

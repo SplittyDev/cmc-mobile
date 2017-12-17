@@ -15,6 +15,8 @@ function driverMain () {
     const container = document.getElementsByClassName('container')[0];
     const searchBar = document.querySelector('.search-bar-input');
 
+    let favorites = localStorage.getItem('favorites') || [];
+
     const updateDom = async () => {
 
         // Get cached data
@@ -92,7 +94,7 @@ function driverMain () {
             currency: CURRENCY,
             });
         } else if (!match) {
-            container.innerHTML = '<div class="placeholder">Cryptocurrency not found :(</div>';
+            container.innerHTML = '<div class="placeholder">¯\\_(ツ)_/¯</div>';
         }
     };
 
