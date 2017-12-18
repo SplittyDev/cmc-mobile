@@ -76,6 +76,27 @@
               </div>
             </div>
             <div class="group">
+              <label>Vibrate when alarm triggers</label>
+              <div class="button-group">
+                <input
+                  state-feedback
+                  state-update-key="vibrateOnAlarm"
+                  state-update-val="false"
+                  state-highlight-if="vibrateOnAlarm"
+                  state-highlight-is="false"
+                  type="button"
+                  value="No">
+                <input
+                  state-feedback
+                  state-update-key="vibrateOnAlarm"
+                  state-update-val="true"
+                  state-highlight-if="vibrateOnAlarm"
+                  state-highlight-is="true"
+                  type="button"
+                  value="Yes">
+              </div>
+            </div>
+            <div class="group">
               <label>Alarms</label>
               <div class="alarm-list-container">
               </div>
@@ -106,7 +127,7 @@
                   class="grow"
                   view-present="main"
                   type="button"
-                  value="Save and back">
+                  value="Back">
               </div>
             </div>
           </form>

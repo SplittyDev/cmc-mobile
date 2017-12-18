@@ -43,22 +43,29 @@ class CoinMarketCapHtmlBuilder {
     });
 
     let i = 0;
-    const alarms = State.getObject('alarms');
+    let alarms = State.getObject('alarms');
 
     // Iterate over cryptocurrencies
     for (const cc of data) {
       if (options.display_limit !== 0 && i++ > options.display_limit) break;
-      const list = alarms[cc['symbol']];
+      let list = alarms[cc['symbol']];
       const currentPrice = cc[`price_${currencyLower}`];
       for (const alarm of list || []) {
         if (false
-          || alarm.high && alarm.price >= currentPrice
-          || !alarm.high && alarm.price <= currentPrice
+          || alarm.high && currentPrice >= alarm.price
+          || !alarm.high && currentPrice <= alarm.price
         ) {
-          Notifier.push({
+          if (State.getString('vibrateOnAlarm') === 'true') {
+            Notifier.vibrate();
+          }
+          Notifier.pushAlert({
             title: 'Price Alarm',
             text: `${cc['name']} (${cc['symbol']}) just went ${alarm.high ? 'up' : 'down'} to ${currentPrice}!`
           });
+          list.splice(list.indexOf(alarm));
+          alarms[cc['symbol']] = list;
+          State.setObject('alarms', alarms);
+          Alarm.update();
         }
       }
       html += `

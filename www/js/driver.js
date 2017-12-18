@@ -31,7 +31,7 @@ function registerFavorites (cb) {
             text: `Removed ${elem.getAttribute('data-name')} from favorites.`,
           });
         }
-        if (State.getString('scrollToTop')) {
+        if (State.getString('scrollToTop') === "true") {
           window.scrollTo(0, 0);
         }
       }

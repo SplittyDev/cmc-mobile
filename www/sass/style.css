@@ -125,6 +125,10 @@ h1 {
   margin-left: 1.25rem;
 }
 
+[view=settings] .container .group:last-child {
+  margin-top: 2rem;
+}
+
 [view=settings] .container .group:not(:first-child) {
   margin-top: 2em;
 }
@@ -132,7 +136,7 @@ h1 {
 [view=settings] .container .button-group {
   display: flex;
   justify-content: space-around;
-  align-content: space-around;
+  align-content: center;
 }
 
 [view=settings] .container .button-group input[type=button] {

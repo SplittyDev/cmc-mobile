@@ -45,6 +45,7 @@ window.State = {
     this.__prepareDefault('alarms', JSON.stringify({ }));
     this.__prepareDefault('currency', 'USD');
     this.__prepareDefault('scrollToTop', 'true');
+    this.__prepareDefault('vibrateOnAlarm', 'false');
   },
 
   __prepareDefault: function(key, val) {
