@@ -3,3 +3,4 @@ plugins/*
 !plugins/.gitkeep
 platforms/*
 !platforms/.gitkeep
+private
