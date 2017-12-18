@@ -42,6 +42,7 @@ window.State = {
 
   __prepare: function() {
     this.__prepareDefault('favorites', JSON.stringify({ list: [] }));
+    this.__prepareDefault('alarms', JSON.stringify({ }));
     this.__prepareDefault('currency', 'USD');
     this.__prepareDefault('scrollToTop', 'true');
   },
@@ -65,6 +66,21 @@ window.State = {
           Notifier.alert({
             title: 'State Manager',
             text: `Set ${key} to ${val}!`,
+          });
+        }
+        e.preventDefault();
+      });
+    }
+    for (let elem of document.querySelectorAll('[state-reset]')) {
+      elem.addEventListener('click', e => {
+        elem.blur();
+        let key = elem.getAttribute('state-reset');
+        localStorage.removeItem(key);
+        this.__prepare();
+        if (elem.hasAttribute('state-feedback')) {
+          Notifier.alert({
+            title: 'State Manager',
+            text: `Successfully reset ${key}.`,
           });
         }
         e.preventDefault();

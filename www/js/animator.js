@@ -15,7 +15,7 @@ window.Animator = {
     }
     step();
   },
-  fadeOut: function(elem, speed) {
+  fadeOut: function(elem, speed, cb) {
     if (elem.style.display === 'none') return;
     var opacity = 1.0;
     elem.style.opacity = opacity;
@@ -25,6 +25,7 @@ window.Animator = {
         if (opacity <= 0.0){
             elem.style.opacity = 0.0;
             elem.style.display = 'none';
+            if (cb) cb();
             return true;
         }
         elem.style.opacity = opacity;

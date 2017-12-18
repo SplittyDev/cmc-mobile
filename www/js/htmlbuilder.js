@@ -43,12 +43,31 @@ class CoinMarketCapHtmlBuilder {
     });
 
     let i = 0;
+    const alarms = State.getObject('alarms');
 
     // Iterate over cryptocurrencies
     for (const cc of data) {
       if (options.display_limit !== 0 && i++ > options.display_limit) break;
+      const list = alarms[cc['symbol']];
+      const currentPrice = cc[`price_${currencyLower}`];
+      for (const alarm of list || []) {
+        if (false
+          || alarm.high && alarm.price >= currentPrice
+          || !alarm.high && alarm.price <= currentPrice
+        ) {
+          Notifier.push({
+            title: 'Price Alarm',
+            text: `${cc['name']} just went ${alarm.high ? 'up' : 'down'} to ${currentPrice}!`
+          });
+        }
+      }
       html += `
-      <li class="coin" data-name="${cc.name}" data-symbol="${cc.symbol}">
+      <li
+        class="coin"
+        data-name="${cc.name}"
+        data-symbol="${cc.symbol}"
+        data-price="${cc[`price_${currencyLower}`]}"
+      >
         <div class="header">
           <span class="coin-name">${cc.name}</span>
           <span class="coin-symbol" data-favorite="${favorites.list.includes(cc.symbol)}">${cc.symbol}</span>

@@ -19,7 +19,7 @@
           <input
             class="search-bar-input"
             placeholder="Search for cryptocurrency..."
-            type="text"
+            type="search"
             autofocus>
         </div>
         <div class="container">
@@ -76,8 +76,34 @@
               </div>
             </div>
             <div class="group">
+              <label>Alarms</label>
+              <div class="alarm-list-container">
+              </div>
               <div class="button-group">
                 <input
+                  class="grow"
+                  alarm-update
+                  state-feedback
+                  state-reset="alarms"
+                  type="button"
+                  value="Clear alarms">
+              </div>
+            </div>
+            <div class="group">
+              <label>Miscellaneous</label>
+              <div class="button-group">
+                <input
+                  class="grow"
+                  state-feedback
+                  state-reset="favorites"
+                  type="button"
+                  value="Clear favorites">
+              </div>
+            </div>
+            <div class="group">
+              <div class="button-group">
+                <input
+                  class="grow"
                   view-present="main"
                   type="button"
                   value="Save and back">
@@ -97,6 +123,7 @@
     <!-- UI Logic -->
     <script type="text/javascript" src="js/notifier.js"></script>
     <script type="text/javascript" src="js/animator.js"></script>
+    <script type="text/javascript" src="js/alarm.js"></script>
     <script type="text/javascript" src="js/views.js"></script>
     <script type="text/javascript" src="js/uitweaks.js"></script>
 

@@ -67,6 +67,58 @@ h1 {
   margin-bottom: 1em;
 }
 
+[view=settings] .container div.alarm-list {
+  padding: 0 1rem 1rem 1rem;
+}
+
+[view=settings] .container div.alarm-list span.alarm-category-header {
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: .5rem;
+}
+
+[view=settings] .container ul.alarm-category {
+  list-style: none;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+[view=settings] .container ul.alarm-category > li {
+  box-shadow: 0 15px 35px rgba(50, 50, 75, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 1rem 1.25rem 1rem 1.25rem;
+  background-color: #ececec;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-bottom: 1rem;
+}
+
+[view=settings] .container ul.alarm-category > li:last-child {
+  margin-bottom: 2rem;
+}
+
+[view=settings] .container ul.alarm-category > li .price {
+  align-self: center;
+  justify-self: flex-start;
+  flex-grow: 1;
+}
+
+[view=settings] .container ul.alarm-category > li .currency {
+  align-self: center;
+  justify-self: flex-end;
+}
+
+[view=settings] .container ul.alarm-category > li input[type=button] {
+  box-shadow: 0 15px 35px rgba(50, 50, 75, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+  font-family: "Roboto";
+  font-size: 0.75rem;
+  padding: .5rem 1rem .5rem 1rem;
+  color: #ececec;
+  background-color: #b7381e;
+  border: none;
+  margin-left: 1.25rem;
+}
+
 [view=settings] .container .group:not(:first-child) {
   margin-top: 2em;
 }
@@ -80,13 +132,17 @@ h1 {
 [view=settings] .container .button-group input[type=button] {
   box-shadow: 0 15px 35px rgba(50, 50, 75, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
   font-family: "Roboto";
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   padding: 1rem 2rem 1rem 2rem;
   background-color: #ececec;
   border: none;
 }
 
-[view=settings] .container .button-group input.state--highlight {
+[view=settings] .container .button-group input[type=button].grow {
+  flex-grow: 1;
+}
+
+[view=settings] .container .button-group input[type=button].state--highlight {
   color: #ececec;
   background-color: #609e92;
 }
@@ -102,6 +158,7 @@ h1 {
 }
 
 .search-bar .search-bar-input {
+  -webkit-appearance: none;
   text-align: left;
   border: none;
   flex-grow: 1;

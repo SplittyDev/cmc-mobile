@@ -21,8 +21,12 @@ const app = {
   onDeviceReady: function() {
     State.ready();
     View.ready();
+    Alarm.ready();
     UITweaks.ready();
     Driver.start();
+    document.addEventListener('backbutton', () => {
+      View.present('main');
+    });
   },
 
   onOffline: function() {

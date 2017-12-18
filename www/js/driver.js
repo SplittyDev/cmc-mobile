@@ -15,23 +15,76 @@ function registerFavorites (cb) {
       elem.lastTap = new Date().getTime() - 200;
       let favorites = State.getObject('favorites');
       let symbol = elem.getAttribute('data-symbol');
-      if (!favorites.list.includes(symbol)) {
-        favorites.list.push(symbol);
-        State.setObject('favorites', favorites);
-        Notifier.alert({
-          title: 'HYPPEEEE',
-          text: `Added ${elem.getAttribute('data-name')} to favorites!`,
-        });
-      } else {
-        favorites.list.splice(favorites.list.indexOf(symbol), 1);
-        State.setObject('favorites', favorites);
-        Notifier.alert({
-          title: 'BOOO',
-          text: `Removed ${elem.getAttribute('data-name')} from favorites.`,
+      function handleFavorite() {
+        if (!favorites.list.includes(symbol)) {
+          favorites.list.push(symbol);
+          State.setObject('favorites', favorites);
+          Notifier.alert({
+            title: 'HYPPEEEE',
+            text: `Added ${elem.getAttribute('data-name')} to favorites!`,
+          });
+        } else {
+          favorites.list.splice(favorites.list.indexOf(symbol), 1);
+          State.setObject('favorites', favorites);
+          Notifier.alert({
+            title: 'BOOO',
+            text: `Removed ${elem.getAttribute('data-name')} from favorites.`,
+          });
+        }
+        if (State.getString('scrollToTop')) {
+          window.scrollTo(0, 0);
+        }
+      }
+      function handleAlarm() {
+        let currentPrice = elem.getAttribute('data-price');
+        let currency = State.getString('currency');
+        Notifier.prompt({
+          title: 'Price Alarm',
+          text: `Current price: ${currentPrice.toLocaleString()} ${currency}\nSet alarm for price:`,
+          buttons: [
+            'Set alarm (high)',
+            'Set alarm (low)',
+          ],
+          callback: obj => {
+            if (obj.input1 === "") return;
+            const input = Number(obj.input1);
+            let alarms = State.getObject('alarms');
+            if (alarms[symbol] === void 0) {
+              alarms[symbol] = [];
+            }
+            alarms[symbol].push({
+              price: input,
+              currency: currency,
+              high: obj.buttonIndex === 1,
+            });
+            State.setObject('alarms', alarms);
+            Alarm.update();
+            Notifier.alert({
+              title: 'Price Alarm',
+              text: `Price alarm set for ${input} ${currency}!`,
+            });
+          },
         });
       }
+      Notifier.confirm({
+        title: 'Action!',
+        text: 'What do you want to do?',
+        buttons: [
+          'Set price alarm',
+          'Nevermind',
+          favorites.list.includes(symbol)
+          ? 'Remove from favorites'
+          : 'Mark as favorite',
+        ],
+        callback: index => {
+          if (index == 3) {
+            handleFavorite();
+          } else if (index == 1) {
+            handleAlarm();
+          }
+        },
+      });
       e.preventDefault();
-      window.scrollTo(0, 0);
       cb();
     } else {
       elem.lastTap = new Date().getTime();
