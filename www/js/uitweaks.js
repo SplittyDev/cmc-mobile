@@ -9,7 +9,12 @@ window.UITweaks = {
     search_bar.addEventListener('keyup', e => {
       if (e.keyCode === 13) {
         search_bar.blur();
-        View.present('settings');
+        if (false
+          || search_bar.value === ""
+          || search_bar.value.toLowerCase() === "settings"
+        ) {
+          View.present('settings');
+        }
       }
     });
   },
