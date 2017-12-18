@@ -1,3 +1,5 @@
+let wasOffline = false;
+
 const app = {
 
   //
@@ -30,6 +32,7 @@ const app = {
   },
 
   onOffline: function() {
+    wasOffline = true;
     Notifier.push({
       title: 'You are offline...',
       text: 'Sadly we can\'t fetch any coin info at the moment.',
@@ -37,9 +40,11 @@ const app = {
   },
 
   onOnline: function() {
+    if (!wasOffline) return;
+    wasOffline = false;
     Notifier.push({
       title: 'You are back online!',
-      text: 'We\'re grabbing that sweet market data for you.',
+      text: 'We\'re grabbing that sweet data for you.',
     });
   },
 };
