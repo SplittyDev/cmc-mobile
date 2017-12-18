@@ -108,6 +108,12 @@ h1 {
   justify-self: flex-end;
 }
 
+[view=settings] .container ul.alarm-category > li .momentum {
+  align-self: center;
+  justify-self: flex-end;
+  flex-shrink: 1;
+}
+
 [view=settings] .container ul.alarm-category > li input[type=button] {
   box-shadow: 0 15px 35px rgba(50, 50, 75, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
   font-family: "Roboto";

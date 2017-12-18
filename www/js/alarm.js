@@ -18,6 +18,9 @@ window.Alarm = {
       if (!alarms.hasOwnProperty(prop)) continue;
       let list = alarms[prop];
       if (list.length === 0) continue;
+      list.sort((a, b) => {
+        return a.high ? b.high ? b.price - a.price : -1 : 1;
+      });
       let frag = document.createDocumentFragment();
       let container = document.createElement('div');
       container.classList.add('alarm-list');
@@ -34,6 +37,9 @@ window.Alarm = {
         let right = document.createElement('span');
         right.classList.add('currency');
         right.textContent = item.currency;
+        let momentum = document.createElement('span');
+        momentum.classList.add('momentum');
+        momentum.innerHTML = item.high ? '&uarr;' : '&darr;';
         let del = document.createElement('input');
         del.setAttribute('type', 'button');
         del.setAttribute('value', 'Unset');
@@ -49,6 +55,7 @@ window.Alarm = {
         });
         li.appendChild(left);
         li.appendChild(right);
+        li.appendChild(momentum);
         li.appendChild(del);
         ul.appendChild(li);
       }

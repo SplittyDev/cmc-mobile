@@ -57,7 +57,7 @@ class CoinMarketCapHtmlBuilder {
         ) {
           Notifier.push({
             title: 'Price Alarm',
-            text: `${cc['name']} just went ${alarm.high ? 'up' : 'down'} to ${currentPrice}!`
+            text: `${cc['name']} (${cc['symbol']}) just went ${alarm.high ? 'up' : 'down'} to ${currentPrice}!`
           });
         }
       }
